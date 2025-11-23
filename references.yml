@@ -1,0 +1,72 @@
+Kop23:
+  type: article
+  title: The Finite Model Property of Some Non-normal Modal Logics with the Transitivity Axiom
+  author: Kopnev, Kirill
+  date: 2023-05-15
+  url: http://arxiv.org/abs/2305.08605
+  serial-number:
+    arxiv: "2305.08605"
+    doi: 10.48550/arXiv.2305.08605
+
+FFL:
+  type: web
+  title: Formalized Formal Logic
+  author:
+    - Saito, Shogo
+    - Noguchi, Mashu
+  date: 2025
+  url: https://github.com/FormalizedFormalLogic/Foundation
+
+Rov20:
+  type: thesis
+  title: Interpretability Logics and Generalized Veltman Semantics in Agda
+  author: Rovira, Jan Mas
+  date: 2020-11
+  genre: Master's Thesis
+  publisher: Universitat de Barcelona
+
+Che80:
+  type: book
+  title: "Modal Logic: An Introduction"
+  author: Chellas, Brian F.
+  date: 1980
+  publisher:
+    name: Cambridge University Press
+  url: https://www.cambridge.org/core/product/692882CD68DE8AD5A0CC85F9A1121673
+  serial-number:
+    doi: 10.1017/CBO9780511621192
+    isbn: 978-0-521-29515-4
+
+dRij92:
+  type: article
+  title: Unary Interpretability Logic
+  author: De Rijke, Maarten
+  date: 1992-03-01
+  serial-number:
+    doi: 10.1305/ndjfl/1093636104
+    issn: 0029-4527
+  parent:
+    type: periodical
+    title: Notre Dame Journal of Formal Logic
+    issue: 2
+    volume: 33
+
+KO21:
+  type: article
+  title: Modal Completeness of Sublogics of the Interpretability Logic IL
+  author:
+    - Kurahashi, Taishi
+    - Okawa, Yuya
+  date: 2021-05
+  page-range: 164-185
+  url:
+    value: https://onlinelibrary.wiley.com/doi/10.1002/malq.202000037
+    date: 2025-10-29
+  serial-number:
+    doi: 10.1002/malq.202000037
+    issn: 0942-5616, 1521-3870
+  parent:
+    type: periodical
+    title: Mathematical Logic Quarterly
+    issue: 2
+    volume: 67
