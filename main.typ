@@ -115,6 +115,7 @@
 
 - このスライドは #link("https://sno2wman.github.io/slides-for-tpp2025/main.pdf") で閲覧出来ます．
 - 形式化されたLeanのコードは #link("https://github.com/FormalizedFormalLogic/Foundation") で閲覧出来ます．
+- より技術的な内容は #link("https://formalizedformallogic.github.io/Foundation/book/Monthly-Reports/Monthly-Report-2025___10") も参考にしてみてください．
 
 = Formalized Formal Logic
 
@@ -282,6 +283,37 @@
     - $upright("(j5)"): w R x, x R y => x S_w y$
   ],
 )
+
+== Veltmanフレームの形式化
+
+#figure(caption: [Veltmanフレームとその上の条件のLean上の形式化])[
+  ```lean
+  structure Modal.Kripke.Frame where
+    World : Type
+    Rel : HRel World
+    [world_nonempty : Nonempty World]
+
+  structure InterpretabilityLogic.Veltman.Frame extends toKripkeFrame : Modal.Kripke.Frame where
+    [isGL : toKripkeFrame.IsGL]
+    S : (w : World) → HRel World
+    S_cond {w x y} : S w x y → w ≺ x
+
+  abbrev SRel' {F : Veltman.Frame} (w : outParam F.World) (x y : F.World) := F.S w x y
+  notation:45 x:max " ≺[" w "] " y:max => SRel' w x y
+
+  class HasAxiomJ1 (F : Frame) : Prop where
+    S_J1 : ∀ {w x : F.World}, w ≺ x → x ≺[w] x
+
+  class HasAxiomJ2 (F : Frame) extends F.HasAxiomJ4 where
+    S_J2 : ∀ {w x y z : F.World}, x ≺[w] y → y ≺[w] z → x ≺[w] z
+
+  class HasAxiomJ4 (F : Frame) : Prop where
+    S_J4 : ∀ {w x y : F.World}, x ≺[w] y → w ≺ y
+
+  class HasAxiomJ5 (F : Frame) : Prop where
+    S_J5 : ∀ {w x y : F.World}, w ≺ x → x ≺ y → x ≺[w] y
+  ```
+]
 
 == $LogicIL$ の部分論理についての分離(1)
 
@@ -481,6 +513,23 @@
 
 == 展望: 完全性について
 
+```lean
+class Sound (𝓢 : S) (𝓜 : M) : Prop where
+  sound : ∀ {φ : F}, 𝓢 ⊢ φ → 𝓜 ⊧ φ
+
+class Complete (𝓢 : S) (𝓜 : M) : Prop where
+  complete : ∀ {φ : F}, 𝓜 ⊧ φ → 𝓢 ⊢ φ
+
+protected class Frame.IsIL (F : Frame) extends F.IsILMinus_J1_J2_J5
+protected alias FrameClass.IL := FrameClass.ILMinus_J1_J2_J5
+
+instance : Sound InterpretabilityLogic.IL FrameClass.IL := by ... -- done
+
+instance : Entailment.Consistent InterpretabilityLogic.IL := by ... -- done
+
+instance : Complete InterpretabilityLogic.IL FrameClass.IL := by sorry
+```
+
 完全性に関しては何も形式化できていない．
 
 #theorem[
@@ -503,6 +552,20 @@
   1. 公理 $sans("W")$: $F models p rhd q -> p -> (q and box not p)$
   2. 公理 $sans("F")$: $F models p rhd dia p -> box not p$
   3. 任意の $w in W$ に対し，$R$ と $S_w$ の合成 $(R;S_w)$ は逆整礎的．
+
+  ```lean
+  abbrev RS {F : Frame} (w : F.World) := Relation.Comp (· ≺ ·) (· ≺[w] ·)
+  notation:50 x:max " ≺≺[" w "] " y:max => RS w x y
+
+  class HasAxiomW (F : Frame) : Prop where
+    S_W : ∀ w : F.World, ConverseWellFounded $ (· ≺≺[w] ·)
+
+  lemma TFAE_HasAxiomW [F.IsIL] : [
+    F.HasAxiomW,
+    F ⊧ Axioms.W (.atom 0) (.atom 1),
+    F ⊧ Axioms.F (.atom 0)
+  ].TFAE := by ...
+  ```
 ]
 
 Veltman意味論の近傍意味論的な拡張であるVerbrugge意味論では上の例を分離できる．技術的取り扱いは煩雑．
