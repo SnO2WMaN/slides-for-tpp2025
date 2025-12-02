@@ -4,6 +4,7 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/diagraph:0.3.5": *
 #import "@preview/oxifmt:1.0.0": strfmt
+#import "@preview/cades:0.3.1": qr-code
 
 #import themes.metropolis: *
 #show: thmrules
@@ -113,9 +114,22 @@
 
 #title-slide()
 
-- このスライドは #link("https://sno2wman.github.io/slides-for-tpp2025/main.pdf") で閲覧出来ます．
-- 形式化されたLeanのコードは #link("https://github.com/FormalizedFormalLogic/Foundation") で閲覧出来ます．
-- より技術的な内容は #link("https://formalizedformallogic.github.io/Foundation/book/Monthly-Reports/Monthly-Report-2025___10") も参考にしてみてください．
+#grid(
+  columns: (1fr, auto),
+  column-gutter: 24pt,
+  inset: (x: 24pt),
+  [
+    - このスライド: #link("https://sno2wman.github.io/slides-for-tpp2025/main.pdf"):
+    - 形式化されたLeanのコード: #link("https://github.com/FormalizedFormalLogic/Foundation")
+    - より技術的な内容は #link("https://formalizedformallogic.github.io/Foundation/book/Monthly-Reports/Monthly-Report-2025___10") も参考にしてみてください．
+  ],
+  [
+    #qr-code("https://sno2wman.github.io/slides-for-tpp2025/main.pdf", width: 120pt)
+  ],
+)
+
+
+
 
 = Formalized Formal Logic
 
