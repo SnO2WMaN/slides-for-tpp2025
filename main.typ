@@ -98,8 +98,9 @@
   aspect-ratio: "16-9",
   config-info(
     title: [解釈可能性論理の形式化についての報告],
+    subtitle: [\@ TPP2025],
     author: [野口 真柊],
-    date: datetime.today(),
+    date: [2025/12/03],
     institution: [神戸大学システム情報学研究科],
   ),
 )
